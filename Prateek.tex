@@ -1,0 +1,223 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{natbib}
+\usepackage{csvsimple}
+\usepackage{booktabs}
+
+
+\begin{document}
+
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries Expenditure and Income Analysis\par}
+    \vspace{2cm}
+    
+    {\Large\bfseries Prateek Gupta\par}
+    \vspace{0.5cm}
+    
+    {\large Department of Economics\par}
+    \vspace{0.5cm}
+    
+    {\large Ambedkar University Delhi\par}
+    \vspace{2cm}
+    
+    {\large\textbf{Supervisor:} Dr. Krishna Ram\par}
+    \vfill
+    
+    {\large \today\par}
+\end{titlepage}
+
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Introduction}
+We are trying to understand household income and expenditure patterns in this project given to us in our MA economics course. We will try to understand patterns for living standards , inequality and consumption behaviour in Indian economy .India have a vast differences of income distribution across urban and rural regions and studying them is important for making better policies. 
+
+We will use recent data on monthly consumption and income and will understand household income and expenditure behaviour .We will use Engel curve to observe if proportion of income spent on food decreases as income rises . We will also see hoe income and expenditure patterns vary across time.
+
+\section{Literature Review}
+Ernst Engel (1857) proposed the idea that lower-income households spend a large share of their income on basic needs necessary for living like food. The inverse relationship between income and food expenditure share is known as Engel’s Law which has been confirmed many times in various economies.
+
+Engel Curves are the plots that show this income and expenditure relationship . It has been found in india thta money allocated on food share decreases with increasing income and also that rural households use more income on necessary items and urban families spend more on non food items like education and health.
+This report will show a strong proof for Engel's law.
+
+\section{Objective / Research Questions}
+This project will try to answer the following questions:
+\begin{itemize}
+    \item How do income and expenditure levels change over time for Indian households?
+    \item Does Engel’s Law hold true for Indian households ?
+    \item How do rural and urban households differ in their spending behavior?
+    \item What can we think about inequality from expenditure shares across income quartiles?
+\end{itemize}
+
+\section{Methodology and Data Source}
+\textbf{Data Source:} Ministry of Consumer Affairs, India \\
+\textbf{Dataset:} Monthly Consumption Index (MCI) panel data in \texttt{.parquet} format.\\
+\textbf{Tools Used:} Python libraries — \texttt{pandas}, \texttt{duckdb}, \texttt{matplotlib}, \texttt{statsmodel} , \texttt{numpy} , \texttt{fastparquet}
+
+\textbf{Method:}
+\begin{enumerate}
+    \item Loaded panel data and processed it using DuckDB.
+    \item Grouped households by income quantiles (quartiles).
+    \item Computed average income and expenditure by year.
+    \item Calculated budget shares by region and income groups.
+    \item Plotted Engel curves to visualize the relationship between income and spending.
+\end{enumerate}
+
+\section{Descriptive Analysis}
+We created three major summary tables from the data:
+
+\subsection*{Table 1: Average Income and Expenditure by Year}
+\begin{table}[h!]
+\centering
+\caption{Average income and expenditure across years}
+\label{tab:avg_income}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Year} & \textbf{Total Income} & \textbf{Total Expenditure} \\
+\midrule
+2014 & 123184.32 & 68757.82 \\
+2015 & 148681.07 & 87628.73 \\
+2016 & 152198.75 & 96551.60 \\
+2017 & 160754.98 & 94297.16 \\
+2018 & 229073.46 & 127291.21 \\
+2019 & 244687.21 & 134693.29 \\
+2020 & 151086.62 & 82158.88 \\
+2021 & 172685.59 & 101465.03 \\
+2022 & 215029.49 & 117590.79 \\
+2023 & 199583.66 & 124471.79 \\
+2024 & 97445.15  &  54072.79 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This table shows an upward trend in both income and spending which means there is economic progress.
+
+\subsection*{Table 2: Budget Share by Region}
+\begin{table}[h!]
+\centering
+\caption{Budget share by region}
+\label{tab:budget_share}
+\begin{tabular}{lr}
+\toprule
+\textbf{Region} & \textbf{Budget Share} \\
+\midrule
+Rural & 0.9713 \\
+Urban & 0.7007 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Urban households spend a smaller share on food and more on other categories. Rural households allocate more on basic needs which we expected. HEnce there is differnces in spending patters across regions.
+
+\subsection*{Table 3: Summary by Income Quartiles}
+
+\begin{table}[h!]
+\centering
+\caption{Summary statistics by income quartile}
+\label{tab:income_quartiles}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Income Quartile} & \textbf{Total Income} & \textbf{Total Expenditure} & \textbf{Budget Share} \\
+\midrule
+Q1 (Low)   & 57,730.12  & 50,754.90  & 1.256 \\
+Q2         & 115,307.16 & 88,704.68  & 0.773 \\
+Q3         & 185,214.30 & 119,018.45 & 0.648 \\
+Q4 (High)  & 415,299.80 & 186,163.72 & 0.484 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+People in higher income quartiles spend more overall but less on food compares to lower income quartile people . This is in line with the Engel's Law.
+
+\section{Econometrics Analysis}
+
+\subsection*{Engel Curve Analysis}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{engel_curve.png}
+    \caption{Engel Curve for Indian Households}
+    \label{fig:engel}
+\end{figure}
+
+In the Engel Curve below we can see a positive but dimisnishing relationship between total income and total expenditure . This means as income rises the part of income spent decreasing. Maybe a larger part is saved then.
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{engel_curve_over_time.png}
+    \caption{Engel Curve shift over time}
+    \label{fig:engel}
+\end{figure}
+
+\subsection*{Shifts Over Time}
+We can see that Engel curves follow a similar patterns in all the years and they become flatter as income rises.
+
+
+At 100000 income level in 2023 there is sudden upward shift in proportion of income spent compared to others years which might be related to inflation or other possible economic policy changes in that year. 
+
+
+\subsection*{Inequality and Policy Implications}
+Policy changes like changes in susidies provided on food through ration schems by government , development of regions can be made using this data . The regions which need for development should be priority of the government. Food subsidy should be provided to those households who need it more.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{regression.png}
+    \caption{Engel Curve With Regression}
+    \label{fig:engel}
+\end{figure}
+
+\subsection*{Engel Curve Analysis}
+
+We see the relationship between total household expenditure (\texttt{TOT\_EXP}) and total income (\texttt{TOTAL\_INCOME}) using a OLS regression on over 1.95 million observations. WE get the following model:
+
+\[
+\widehat{\texttt{TOT\_EXP}} = 96170 + 0.0136 \times \texttt{TOTAL\_INCOME}
+\]
+
+The coefficient on income is statistically significant (\emph{p} < 0.001), which means that higher income is linked with higher total expenditure. However, the R-squared value is just 0.001, indicating that income explains only a small proportion of the variation in expenditure across households.
+
+\vspace{1em}
+In the graph we have plotted an Engel curve using binned averages of income and expenditure. The red curve in the figure above shows the average expenditure for different income bins, and the blue line shows the linear regression fit of our model.
+
+The Engel curve is showinh a non-linear pattern: at lower income levels, expenditure rises quickly with income, but the slope flattens as income increases. This is in line with Engel’s Law, which states that as income rises, the proportion of income spent on necessary item falls.
+
+Even though there is statistically significante linear relation between income and expenditure  , the plot clearly shows that a simple linear model does not really shows the true picture of the data, especially at low and high ends of the income distribution.
+
+
+\section{Conclusion}
+The project affirms several classic economic principles:
+\begin{itemize}
+    \item Engel’s Law is proved: poor households spend more of their income on food.
+    \item Urban households spend on different items, while rural households spend on essentials.
+    \item Income and expenditure have risen over the years, improving living standards.
+\end{itemize}
+
+\textbf{Policy Recommendations:}
+\begin{itemize}
+    \item Offer subsidies(including rations) or income support for the lowest quartile.
+    \item Teach rural households how to better spend their income so they can save more.
+    \item Make welfare policies according to the data.
+\end{itemize}
+
+\section{References}
+\begin{itemize}
+    \item Engel, E. (1857). \textit{Die Productions- und Consumtionsverhältnisse des Königreichs Sachsen}.
+    \item NSSO Household Consumption Surveys
+    \item Government of India, Ministry of Statistics and Programme Implementation
+    \item Course Readings and Lectures (BA(hons) Economics, Delhi University)
+\end{itemize}
+
+\end{document}
